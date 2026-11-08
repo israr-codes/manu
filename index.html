@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ur" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quetta Zaiqa - Menu Viewer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .viewer-container {
+            max-width: 600px;
+            width: 100%;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        .menu-page {
+            display: none;
+        }
+        .menu-page.active {
+            display: block;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        button {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #d35400;
+        }
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<div class="viewer-container">
+    
+    <!-- Page 1 Image -->
+    <div class="menu-page active" id="page-1">
+        <img src="https://lh3.googleusercontent.com/d/172NEr1J0WaQhSLxnq9a6RRtqavRzaMxg" alt="Menu Page 1">
+    </div>
+
+    <!-- Page 2 Image -->
+    <div class="menu-page" id="page-2">
+        <img src="https://lh3.googleusercontent.com/d/1y_wpxWfhkQqRldIb3m6u5ZPHXVsaQHg3" alt="Menu Page 2">
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="btn-container">
+        <button id="prevBtn" onclick="changePage(-1)" disabled>⬅️ Back</button>
+        <button id="nextBtn" onclick="changePage(1)">Next ➡️</button>
+    </div>
+
+</div>
+
+<script>
+    let currentPage = 1;
+    const totalPages = 2;
+
+    function changePage(direction) {
+        currentPage += direction;
+
+        if (currentPage < 1) currentPage = 1;
+        if (currentPage > totalPages) currentPage = totalPages;
+
+        // Hide all pages
+        document.querySelectorAll('.menu-page').forEach(page => {
+            page.classList.remove('active');
+        });
+
+        // Show current page
+        document.getElementById(`page-${currentPage}`).classList.add('active');
+
+        // Update button states
+        document.getElementById('prevBtn').disabled = (currentPage === 1);
+        document.getElementById('nextBtn').disabled = (currentPage === totalPages);
+        
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+</script>
+
+</body>
+</html>
